@@ -21,6 +21,7 @@
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative; /* Ensure positioning for screenshot capture */
         }
 
         h1 {
@@ -37,6 +38,7 @@
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
+            overflow: auto; /* Ensure overflow handling */
         }
 
         .stat-item {
@@ -65,11 +67,6 @@
             font-weight: bold;
         }
 
-        .stat-item .decrease-btn, .stat-item .remove-btn {
-            display: none; /* Hide buttons in this view */
-        }
-
-        /* Define color classes */
         .color1 { background-color: #e57373; }
         .color2 { background-color: #f06292; }
         .color3 { background-color: #ba68c8; }
@@ -86,10 +83,37 @@
         .color14 { background-color: #ff8a65; }
         .color15 { background-color: #ce93d8; }
         .color16 { background-color: #f48fb1; }
+
+        .screenshot-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .screenshot-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
     </style>
+    <!-- Load html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 </head>
 
 <body>
+    <div class="button-container">
+        <button class="screenshot-btn" onclick="takeScreenshot()">Ambil Screenshot</button>
+    </div>
     <div class="container">
         <h1>Statistik Poin Peserta</h1>
         <div id="poinStats" class="poin-stats"></div>
@@ -148,6 +172,15 @@
                 poinStats.appendChild(div);
                 colorIndex++;
             }
+        }
+
+        function takeScreenshot() {
+            html2canvas(document.querySelector(".container")).then(canvas => {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL("image/png");
+                link.download = 'screenshot.png';
+                link.click();
+            });
         }
 
         document.addEventListener('DOMContentLoaded', init);
