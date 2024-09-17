@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistik Poin Peserta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .poin-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .stat-item {
+            flex: 1 1 200px;
+            padding: 20px;
+            border-radius: 8px;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-item h3 {
+            margin: 0;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .stat-item .poin-value {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .stat-item .decrease-btn, .stat-item .remove-btn {
+            display: none; /* Hide buttons in this view */
+        }
+
+        /* Define color classes */
+        .color1 { background-color: #e57373; }
+        .color2 { background-color: #f06292; }
+        .color3 { background-color: #ba68c8; }
+        .color4 { background-color: #64b5f6; }
+        .color5 { background-color: #4fc3f7; }
+        .color6 { background-color: #4db6ac; }
+        .color7 { background-color: #81c784; }
+        .color8 { background-color: #dce775; }
+        .color9 { background-color: #ffd54f; }
+        .color10 { background-color: #ffb74d; }
+        .color11 { background-color: #a1887f; }
+        .color12 { background-color: #e0e0e0; }
+        .color13 { background-color: #90a4ae; }
+        .color14 { background-color: #ff8a65; }
+        .color15 { background-color: #ce93d8; }
+        .color16 { background-color: #f48fb1; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Statistik Poin Peserta</h1>
+        <div id="poinStats" class="poin-stats"></div>
+    </div>
+
+    <script>
+        const daftarNama = [
+            "AHMAD ABIYAN RAMDANI",
+            "AHMAD MAHENDRA",
+            "AULIA AL MAR'ATUSSALIHAH",
+            "EMA HAMDANI PUTRI",
+            "M. AZZAR NOZZI",
+            "M. KHAIRUL MINAN",
+            "M. ROZI RAMDANI",
+            "M. SIRO JUDIN BASRI",
+            "M. ZARKAWI RAMADAN",
+            "MUHAMMAD FAUZAN HAKIM",
+            "RAQASY ASIRULLAH",
+            "SALMIYAH",
+            "SALSABILA",
+            "SERLY SASKIA SAFITRI",
+            "SITI AZIZAH",
+            "ZULYA MAHENDI"
+        ];
+
+        const warnaKelas = [
+            'color1', 'color2', 'color3', 'color4', 'color5',
+            'color6', 'color7', 'color8', 'color9', 'color10',
+            'color11', 'color12', 'color13', 'color14', 'color15',
+            'color16'
+        ];
+
+        function init() {
+            if (!localStorage.getItem('poinData')) {
+                const initialPoinData = {};
+                daftarNama.forEach(nama => initialPoinData[nama] = 0);
+                localStorage.setItem('poinData', JSON.stringify(initialPoinData));
+            }
+
+            updatePoinList();
+        }
+
+        function updatePoinList() {
+            const poinData = JSON.parse(localStorage.getItem('poinData'));
+            const poinStats = document.getElementById('poinStats');
+            poinStats.innerHTML = '';
+
+            let colorIndex = 0;
+            for (const nama in poinData) {
+                const div = document.createElement('div');
+                div.className = `stat-item ${warnaKelas[colorIndex % warnaKelas.length]}`;
+                div.innerHTML = `
+                  <h3>${nama}</h3>
+                  <div class="poin-value">${poinData[nama]} poin</div>
+              `;
+                poinStats.appendChild(div);
+                colorIndex++;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+
+</html>
