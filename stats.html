@@ -161,13 +161,16 @@
             const poinStats = document.getElementById('poinStats');
             poinStats.innerHTML = '';
 
+            // Mengubah poinData menjadi array dan mengurutkan berdasarkan poin terbanyak
+            const sortedPoinData = Object.entries(poinData).sort((a, b) => b[1] - a[1]);
+
             let colorIndex = 0;
-            for (const nama in poinData) {
+            for (const [nama, poin] of sortedPoinData) {
                 const div = document.createElement('div');
                 div.className = `stat-item ${warnaKelas[colorIndex % warnaKelas.length]}`;
                 div.innerHTML = `
                   <h3>${nama}</h3>
-                  <div class="poin-value">${poinData[nama]} poin</div>
+                  <div class="poin-value">${poin} poin</div>
               `;
                 poinStats.appendChild(div);
                 colorIndex++;
