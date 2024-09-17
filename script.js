@@ -1,5 +1,5 @@
 const daftarNama = [
-    "JUWARIYAH HASNA",
+    "AHMAD ABIYAN RAMDANI",
     "AHMAD MAHENDRA",
     "AULIA AL MAR'ATUSSALIHAH",
     "EMA HAMDANI PUTRI",
